@@ -1,34 +1,39 @@
 ﻿using System;
+using System.Globalization;
+using PrimeiroProjeto.ExercicioDeClasseEstatica;
 
 namespace PrimeiroProjeto {
     internal class Program {
+        private static List<string> programasDisponiveis = new List<string>();
         static void Main(string[] args) {
-            Pessoa _1 = new Pessoa();
-            Pessoa _2 = new Pessoa();
+            programasDisponiveis.Add("conversor de moeda");
 
-            Console.WriteLine("Informe os dados da primeira pessoa");
-            _1.Nome = Console.ReadLine();
-            _1.Idade = int.Parse(Console.ReadLine());
+            while (true) {
+                Console.Write("Qual programa você deseja iniciar: ");
+                string programa = Console.ReadLine();
 
-            Console.WriteLine("Informe os dados da segunda pessoa");
-            _2.Nome = Console.ReadLine();
-            _2.Idade = int.Parse(Console.ReadLine());
+                if (programa == "conversor de moeda") {
+                    InicializarConversorDeMoeda();
+                } else {
+                    Console.WriteLine("Não existe esse programa, confira abaixo uma lista dos programas disponíveis:");
+                    foreach (string item in programasDisponiveis) {
+                        Console.WriteLine(" - " + item);
+                    }
+                }
 
-            string pessoaMaisVelha = MaisVelha(_1, _2);
-
-            Console.WriteLine($"{_1.Nome} tem {_1.Idade} anos e {_2.Nome} tem {_2.Idade} anos. Logo {pessoaMaisVelha}.");
+                Console.WriteLine();
+            }
         }
 
-        static string MaisVelha(Pessoa pessoa1, Pessoa pessoa2) {
-            if (pessoa1.Idade == pessoa2.Idade) {
-                return "ambos tem a mesma idade";
-            }
-            else if (pessoa1.Idade > pessoa2.Idade) {
-                return $"{pessoa1.Nome} é mais velho";
-            }
-            else {
-                return $"{pessoa2.Nome} é mais velho";
-            }
+        static void InicializarConversorDeMoeda() {
+            Console.Write("Qual é a atual cotação do dolar? ");
+            double cotacao = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            Console.WriteLine("Quantos dólares você quer comprar? ");
+            double valorDesejado = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            double valorASerPago = ConversorDeMoeda.ComprarDolares(cotacao, valorDesejado);
+
+            Console.WriteLine($"Baseado na cotação do dolar, o valor em reais a ser pago é {valorASerPago.ToString("F2")}");
         }
     }
 }

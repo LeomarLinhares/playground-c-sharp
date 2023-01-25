@@ -12,3 +12,5 @@
         }
     }
 }
+
+// Essa classe é estática pois não possuí variação. Ela não é instanciável. Isso significa que ela não deve se alterar dependendo da instância.
